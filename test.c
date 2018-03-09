@@ -13,25 +13,6 @@
 
 #include "test.h"
 
-float hit_sphere(t_sphere *sphere, t_ray *ray)
-{
-	t_vecteur oc;
-	float a;
-	float b;
-	float c;
-	float delta;
-
-	oc = v_less(ray->A, sphere->center);
-	a = v_dot(ray->B, ray->B);
-	b = 2.0 * v_dot(oc, ray->B);
-	c = v_dot(oc, oc) - sphere->radius * sphere->radius;
-	delta = b * b - 4 * a * c;
-	if (delta < 0)
-		return (-1.0);
-	else
-	return ((-b -sqrt(delta) )/ (2.0 * a));
-}
-
 t_vecteur r_color(t_ray *ray)
 {
 	t_vecteur unit_dir;
@@ -43,24 +24,34 @@ t_vecteur r_color(t_ray *ray)
 	t_vecteur N;
 	t_vecteur rayon;
 	t_sphere sphere;
+	t_record *r;
+	float *min_max;
 
+	if(!(min_max = (float *)ft_memalloc(2 * sizeof(float))))
+		return(v_set(0.0, 0.0, 0.0));
 	center = v_set(0.0, 0.0, -1.0);
-	set_sphere(&sphere, center, 0.5);
-	t = hit_sphere(&sphere, ray);
-	if (t > 0.0)
+	//set_sphere(&sphere, center, 0.5);
+	set_min_max(0.0, 2147483647.0, min_max);
+	//ft_putstr("debut couleur");
+	if (hit_qqch(set_list(), ray, min_max, r))
 	{
-		rayon = v_add(ray->A, v_mult(ray->B, t));
-		N = v_normalize(v_less(rayon, center));
-		N = v_set(N.x + 1, N.y + 1, N.z + 1);
+		//rayon = v_add(ray->A, v_mult(ray->B, r.t));
+		//N = v_normalize(v_less(rayon, center));
+//printf("t = %f\n", r->t);
+//printf("Nx = %f, Ny = %f, Nz = %f -------- ", N.x , N.y , N.z);
+		N = v_set(r->normal.x + 1, r->normal.y +1 , r->normal.z + 1);
+		//printf("Nx = %f, Ny = %f, Nz = %f -------- ", N.x , N.y , N.z);
 		vr = v_mult(N, 0.5);
+		//vr = v_set(1.0, 0.0, 0.0);
+	//	printf("VRx = %f, VRy = %f, VRz = %f\n", vr.x , vr.y , vr.z);
 		return(vr);
 	}
-	vr = v_set(0.0, 0.0, 0.0);
- 	/*v_set(0.5, 0.7, 1.0, &v2);
+	v1 = v_set(1.0, 1.0, 1.0);
+ 	v2 = v_set(0.5, 0.7, 1.0);
 
 	unit_dir = ray->B;
 	t = 0.5 * (unit_dir.y + 1.0);
- vr = v_add(v_mult(v1, (1.0 - t)), v_mult(v2, t));*/
+ vr = v_add(v_mult(v1, (1.0 - t)), v_mult(v2, t));
  return (vr);
 }
 

@@ -17,6 +17,7 @@
 # include <math.h>
 # define W_LENGHT 900
 # define W_WIDTH 450
+# define N_FORM 2
 
 typedef struct	s_img
 {
@@ -54,6 +55,13 @@ typedef struct s_sphere
 	t_vecteur center;
 	float radius;
 }								t_sphere;
+typedef struct s_formlist
+{
+	t_sphere *form;
+	int type;
+	int size;
+}				t_formlist;
+
 t_vecteur v_add(t_vecteur v1, t_vecteur v2);
 t_vecteur v_less(t_vecteur v1, t_vecteur v2);
 t_vecteur v_cross(t_vecteur v1, t_vecteur v2);
@@ -67,4 +75,9 @@ t_vecteur v_normalize(t_vecteur v);
 void	mlx_set(t_mlx *mlx);
 int		my_key_funct(int keycode);
 void set_sphere(t_sphere *sphere, t_vecteur a, float b);
+void set_min_max(float min, float max, float *min_max);
+int hit_sphere(t_sphere *sphere, t_ray *ray, float *min_max, t_record *rec);
+int hit_qqch(t_formlist *list, t_ray *ray, float *min_max, t_record *rec);
+t_formlist *set_list(void);
+t_record *set_rec(t_record r);
 #endif
