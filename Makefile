@@ -6,12 +6,12 @@
 #    By: cbesse <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/01 12:13:48 by cbesse            #+#    #+#              #
-#    Updated: 2018/03/01 12:13:50 by cbesse           ###   ########.fr        #
+#    Updated: 2018/03/09 16:16:35 by cbesse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = RTv1
-SRC = test.c vec1.c vec2.c mlx.c setting.c
+SRC = test.c vec1.c vec2.c mlx.c setting.c hit.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 FLAGS =
