@@ -15,9 +15,9 @@
 # include "mlx.h"
 # include "libft/includes/libft.h"
 # include <math.h>
-# define W_LENGHT 900
-# define W_WIDTH 450
-# define N_FORM 3
+# define W_LENGHT 1200
+# define W_WIDTH 1200
+# define N_FORM 5
 
 typedef struct	s_img
 {
@@ -58,6 +58,20 @@ typedef struct s_sphere
 	float radius;
 	t_vecteur color;
 }								t_sphere;
+typedef struct s_cylindre
+{
+	t_vecteur base;
+	t_vecteur dir;
+	float radius;
+	t_vecteur color;
+}								t_cylindre;
+typedef struct s_cone
+{
+	t_vecteur apex;
+	t_vecteur dir;
+	float angle;
+	t_vecteur color;
+}								t_cone;
 typedef struct s_plan
 {
 	t_vecteur point;
