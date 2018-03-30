@@ -45,12 +45,18 @@ void set_min_max(double min, double max, double *min_max)
   min_max[1] = max;
 }
 
+t_vecteur libe(void **r,  void **min_max, t_vecteur vr)
+{
+  ft_memdel(r);
+  ft_memdel(min_max);
+  return(vr);
+}
+
 t_formlist *set_list(void)
 {
   t_formlist *list;
-  t_sphere sphere1;
   int i = -1;
-  //ft_putstr("/ndebut set_list");
+
   list = (t_formlist *)ft_memalloc(N_FORM * sizeof(t_formlist));
   while(++i < 1)
    list[i].form = (t_sphere *)ft_memalloc(1 * sizeof(t_sphere));
@@ -88,7 +94,7 @@ t_formlist *set_list(void)
   list[3].color = v_set(0.99, 0.99, 0.0);
   return (list);
 }
-
+/*
 void set_rec(t_record r, t_record *rec)
 {
   rec->t = r.t;
@@ -96,3 +102,4 @@ void set_rec(t_record r, t_record *rec)
   rec->normal = v_set(r.normal.x, r.normal.y, r.normal.z);
   rec->color = v_set(r.color.x, r.color.y, r.color.z);
 }
+*/

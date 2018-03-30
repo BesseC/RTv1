@@ -111,10 +111,13 @@ void set_min_max(double min, double max, double *min_max);
 int hit_sphere(t_sphere *sphere, t_ray *ray, double *min_max, t_record *rec);
 int hit_qqch(t_formlist *list, t_ray *ray, double *min_max, t_record *rec);
 t_formlist *set_list(void);
-void set_rec(t_record r, t_record *rec);
+//void set_rec(t_record r, t_record *rec);
 t_camera s_cam(t_vecteur lookfrom, t_vecteur lookat, t_vecteur vup, double fov);
 void sphere_rec(t_ray *ray, double t, t_sphere *s, t_record *rec);
 void cyl_rec(t_ray *ray, double t, t_cylindre *cyl, t_record *rec);
 void cone_rec(t_ray *ray, double t, t_cone *cone, t_record *rec);
 double *cone_tab(t_cone *cone, t_ray *ray);
+void ret_inter(t_formlist list, double *min_max, t_record *rec, int *hit);
+t_vecteur libe(void **r, void **min_max, t_vecteur vr);
+t_vecteur r_color(t_ray *ray, t_formlist *list, t_vecteur *light, int n_light);
 #endif

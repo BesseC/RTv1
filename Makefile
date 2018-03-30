@@ -6,15 +6,15 @@
 #    By: cbesse <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/01 12:13:48 by cbesse            #+#    #+#              #
-#    Updated: 2018/03/09 16:16:35 by cbesse           ###   ########.fr        #
+#    Updated: 2018/03/30 14:17:21 by cbesse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = RTv1
-SRC = test.c vec1.c vec2.c mlx.c setting.c hit.c camera.c hit2.c
+SRC = vec1.c vec2.c mlx.c setting.c hit.c camera.c hit2.c couleur.c main.c
 OBJ = $(SRC:.c=.o)
 CC = cc
-FLAGS =
+FLAGS = -Wall -Wextra -Werror
 LIB = -Llibft -lft -lmlx
 
 all : $(NAME)
@@ -38,6 +38,6 @@ clean :
 fclean : clean
 	@rm -rf $(NAME) $(LIB)
 	@cd libft && make fclean
-	@echo "\033[1;32mSuppresion de la librairie\033[0m"
+	@echo "\033[1;32mSuppresion du binaire\033[0m"
 
 re : fclean all
