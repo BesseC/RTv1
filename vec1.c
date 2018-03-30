@@ -12,7 +12,7 @@
 
 #include "test.h"
 
-t_vecteur v_mult(t_vecteur v1, float i)
+t_vecteur v_mult(t_vecteur v1, double i)
 {
   t_vecteur v2;
 
@@ -31,7 +31,7 @@ int v_equal(t_vecteur v1, t_vecteur v2)
   return (0);
 }
 
-t_vecteur v_div(t_vecteur v1, float i)
+t_vecteur v_div(t_vecteur v1, double i)
 {
   t_vecteur v2;
 
@@ -41,7 +41,7 @@ t_vecteur v_div(t_vecteur v1, float i)
   return (v2);
 }
 
-t_vecteur v_set(float x, float y, float z)
+t_vecteur v_set(double x, double y, double z)
 {
   t_vecteur v;
   v.x = x;

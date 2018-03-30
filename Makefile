@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = RTv1
-SRC = test.c vec1.c vec2.c mlx.c setting.c hit.c
+SRC = test.c vec1.c vec2.c mlx.c setting.c hit.c camera.c hit2.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 FLAGS =

@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hit2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/24 13:35:10 by cbesse            #+#    #+#             */
+/*   Updated: 2018/03/24 13:38:57 by cbesse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "test.h"
+
+void sphere_rec(t_ray *ray, double t, t_sphere *s, t_record *rec)
+{
+  rec->t = t;
+  rec->p = v_add(ray->A, v_mult(ray->B, rec->t));
+  rec->normal = v_div(v_less(rec->p, s->center), s->radius);
+}
+
+void cyl_rec(t_ray *ray, double t, t_cylindre *cyl, t_record *rec)
+{
+  t_vecteur uv;
+  t_vecteur oc;
+
+  rec->t = t;
+  rec->p = v_add(ray->A, v_mult(ray->B, rec->t));
+  oc = v_less(rec->p, cyl->base);
+  uv = v_mult(cyl->dir, v_dot(cyl->dir, oc));
+  rec->normal = v_normalize(v_less(oc, uv));
+}
+
+void cone_rec(t_ray *ray, double t, t_cone *cone, t_record *rec)
+{
+  double uv;
+  t_vecteur temp;
+  t_vecteur oc;
+
+  rec->t = t;
+  rec->p = v_add(ray->A, v_mult(ray->B, rec->t));
+  oc = v_less(rec->p, cone->apex);
+  if (v_dot(v_normalize(cone->dir), v_normalize(oc)) > 0)
+    temp = v_set(cone->dir.x, cone->dir.y, cone->dir.z);
+  else
+    temp = v_set(-cone->dir.x, -cone->dir.y, -cone->dir.z);
+  uv = v_norm(oc) / cos(cone->angle / 2);
+  rec->normal = v_normalize(v_less(oc, v_mult(temp, uv)));
+}
+
+double *cone_tab(t_cone *cone, t_ray *ray)
+{
+  double *tab;
+  t_vecteur oc;
+
+  if(!(tab = (double *) malloc(sizeof(double) * 6)))
+    return (NULL);
+  tab[5] = tan(cone->angle / 2);
+	tab[5] = tab[5] * tab[5];
+	oc = v_less(ray->A, cone->apex);
+	tab[0] = v_dot(ray->B, ray->B) - (1 + tab[5]) * v_dot(ray->B, cone->dir)
+  * v_dot(ray->B, cone->dir);
+  tab[1] = 2 * (v_dot(ray->B, oc) - (1 + tab[5]) * v_dot(ray->B , cone->dir)
+  * v_dot(oc, cone->dir));
+  tab[2] = v_dot(oc, oc) - (1 + tab[5]) * v_dot(oc, cone->dir)
+  * v_dot(oc, cone->dir);
+	tab[4] = tab[1] * tab[1] - 4 * tab[0] * tab[2];
+  return (tab);
+}

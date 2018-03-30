@@ -43,17 +43,17 @@ t_vecteur v_cross(t_vecteur v1, t_vecteur v2)
   return (v3);
 }
 
-float v_dot(t_vecteur v1, t_vecteur v2)
+double v_dot(t_vecteur v1, t_vecteur v2)
 {
-  float r;
+  double r;
 
   r = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
   return (r);
 }
 
-float v_norm(t_vecteur v)
+double v_norm(t_vecteur v)
 {
-  float norm;
+  double norm;
 
   norm = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
   return (norm);
