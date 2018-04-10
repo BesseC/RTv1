@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "rtv1.h"
 
 int	hit_sphere(t_sphere *sphere, t_ray *ray, double *min_max, t_record *rec)
 {

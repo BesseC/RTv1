@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "rtv1.h"
 
 t_camera	s_cam(t_vecteur lkfrom, t_vecteur lkat, t_vecteur vup, double fov)
 {

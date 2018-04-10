@@ -6,7 +6,7 @@
 /*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 17:13:32 by cbesse            #+#    #+#             */
-/*   Updated: 2017/12/05 16:31:10 by cbesse           ###   ########.fr       */
+/*   Updated: 2018/04/06 15:52:39 by cbesse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,6 @@ char			*ft_strjoinch(char **s1, char c);
 char			*ft_strjoin(char *s1, const char *s2);
 void			ft_lstremove(t_list **begin_list, int data_ref);
 int				get_next_line(int const fd, char **line);
+double			ft_atof(const char *str);
+int				ft_nmotsplit(const char *str, char c);
 #endif

@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   ft_strsplitn.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/05 15:03:04 by cbesse            #+#    #+#             */
-/*   Updated: 2018/03/05 15:03:07 by cbesse           ###   ########.fr       */
+/*   Created: 2018/04/06 15:49:10 by cbesse            #+#    #+#             */
+/*   Updated: 2018/04/06 15:49:12 by cbesse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
 
-int		my_key_funct(int keycode)
-{
-	if (keycode == 53)
-		exit(1);
-	return (0);
-}
+#include "libft.h"
 
-void	mlx_set(t_mlx *mlx)
+int	ft_nmotsplit(const char *str, char c)
 {
-	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, W_LENGHT, W_WIDTH, "RTv1");
-	mlx->img.img_ptr = mlx_new_image(mlx->mlx, W_LENGHT, W_WIDTH);
-	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
-			&mlx->img.size_l, &mlx->img.endian);
+	int v;
+	int total;
+
+	v = 0;
+	total = 0;
+	while (str[v])
+	{
+		while (str[v] != c && str[v])
+			v++;
+		if (str[v] == c)
+		{
+			total++;
+		}
+		v++;
+	}
+	return (total);
 }

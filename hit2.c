@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "rtv1.h"
 
 void	sphere_rec(t_ray *ray, double t, t_sphere *s, t_record *rec)
 {
