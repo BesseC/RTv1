@@ -6,29 +6,29 @@
 /*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 15:49:10 by cbesse            #+#    #+#             */
-/*   Updated: 2018/04/06 15:49:12 by cbesse           ###   ########.fr       */
+/*   Updated: 2018/04/11 13:53:58 by cbesse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libft.h"
 
-int	ft_nmotsplit(const char *str, char c)
+int	ft_nmotsplit(const char *s, char c)
 {
-	int v;
-	int total;
+	int		cnt;
+	int		in_substring;
 
-	v = 0;
-	total = 0;
-	while (str[v])
+	in_substring = 0;
+	cnt = 0;
+	while (*s != '\0')
 	{
-		while (str[v] != c && str[v])
-			v++;
-		if (str[v] == c)
+		if (in_substring == 1 && *s == c)
+			in_substring = 0;
+		if (in_substring == 0 && *s != c)
 		{
-			total++;
+			in_substring = 1;
+			cnt++;
 		}
-		v++;
+		s++;
 	}
-	return (total);
+	return (cnt);
 }

@@ -94,5 +94,5 @@ char			*ft_strjoin(char *s1, const char *s2);
 void			ft_lstremove(t_list **begin_list, int data_ref);
 int				get_next_line(int const fd, char **line);
 double			ft_atof(const char *str);
-int				ft_nmotsplit(const char *str, char c);
+int				ft_nmotsplit(const char *s, char c);
 #endif

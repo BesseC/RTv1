@@ -6,7 +6,7 @@
 /*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 13:35:10 by cbesse            #+#    #+#             */
-/*   Updated: 2018/03/30 11:56:20 by cbesse           ###   ########.fr       */
+/*   Updated: 2018/04/11 14:27:36 by cbesse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	sphere_rec(t_ray *ray, double t, t_sphere *s, t_record *rec)
 {
 	rec->t = t;
-	rec->p = v_add(ray->A, v_mult(ray->B, rec->t));
+	rec->p = v_add(ray->ori, v_mult(ray->dir, rec->t));
 	rec->normal = v_div(v_less(rec->p, s->center), s->radius);
 }
 
@@ -25,7 +25,7 @@ void	cyl_rec(t_ray *ray, double t, t_cylindre *cyl, t_record *rec)
 	t_vecteur oc;
 
 	rec->t = t;
-	rec->p = v_add(ray->A, v_mult(ray->B, rec->t));
+	rec->p = v_add(ray->ori, v_mult(ray->dir, rec->t));
 	oc = v_less(rec->p, cyl->base);
 	uv = v_mult(cyl->dir, v_dot(cyl->dir, oc));
 	rec->normal = v_normalize(v_less(oc, uv));
@@ -38,7 +38,7 @@ void	cone_rec(t_ray *ray, double t, t_cone *cone, t_record *rec)
 	t_vecteur	oc;
 
 	rec->t = t;
-	rec->p = v_add(ray->A, v_mult(ray->B, rec->t));
+	rec->p = v_add(ray->ori, v_mult(ray->dir, rec->t));
 	oc = v_less(rec->p, cone->apex);
 	if (v_dot(v_normalize(cone->dir), v_normalize(oc)) > 0)
 		temp = v_set(cone->dir.x, cone->dir.y, cone->dir.z);
@@ -57,11 +57,11 @@ double	*cone_tab(t_cone *cone, t_ray *ray)
 		return (NULL);
 	tab[5] = tan(cone->angle / 2);
 	tab[5] = tab[5] * tab[5];
-	oc = v_less(ray->A, cone->apex);
-	tab[0] = v_dot(ray->B, ray->B) - (1 + tab[5]) * v_dot(ray->B, cone->dir)
-		* v_dot(ray->B, cone->dir);
-	tab[1] = 2 * (v_dot(ray->B, oc) - (1 + tab[5]) * v_dot(ray->B, cone->dir)
-		* v_dot(oc, cone->dir));
+	oc = v_less(ray->ori, cone->apex);
+	tab[0] = v_dot(ray->dir, ray->dir) - (1 + tab[5]) *
+		v_dot(ray->dir, cone->dir) * v_dot(ray->dir, cone->dir);
+	tab[1] = 2 * (v_dot(ray->dir, oc) - (1 + tab[5]) *
+			v_dot(ray->dir, cone->dir) * v_dot(oc, cone->dir));
 	tab[2] = v_dot(oc, oc) - (1 + tab[5]) * v_dot(oc, cone->dir)
 		* v_dot(oc, cone->dir);
 	tab[4] = tab[1] * tab[1] - 4 * tab[0] * tab[2];

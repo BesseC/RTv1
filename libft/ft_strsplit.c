@@ -6,70 +6,67 @@
 /*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:17:53 by cbesse            #+#    #+#             */
-/*   Updated: 2017/12/05 16:13:58 by cbesse           ###   ########.fr       */
+/*   Updated: 2018/04/11 13:54:28 by cbesse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	nb_mot(const char *str, char c)
+static int		ft_cnt_parts(const char *s, char c)
 {
-	int v;
-	int total;
+	int		cnt;
+	int		in_substring;
 
-	v = 0;
-	total = 0;
-	while (str[v])
+	in_substring = 0;
+	cnt = 0;
+	while (*s != '\0')
 	{
-		while (str[v] != c && str[v])
-			v++;
-		if (str[v] == c)
+		if (in_substring == 1 && *s == c)
+			in_substring = 0;
+		if (in_substring == 0 && *s != c)
 		{
-			total++;
+			in_substring = 1;
+			cnt++;
 		}
-		v++;
+		s++;
 	}
-	return (total);
+	return (cnt);
 }
 
-static int	lmot(const char *str, int k, char c)
+static int		ft_wlen(const char *s, char c)
 {
-	int	count;
+	int		len;
 
-	count = 0;
-	while (str[k] != c && str[k])
+	len = 0;
+	while (*s != c && *s != '\0')
 	{
-		k++;
-		count++;
+		len++;
+		s++;
 	}
-	return (count);
+	return (len);
 }
 
-char		**ft_strsplit(char const *str, char c)
+char			**ft_strsplit(char const *s, char c)
 {
-	int		i[3];
-	char	**tab;
+	char	**t;
+	int		nb_word;
+	int		index;
 
-	if (!str)
+	index = 0;
+	nb_word = ft_cnt_parts((const char *)s, c);
+	t = (char **)malloc(sizeof(*t) * (ft_cnt_parts((const char *)s, c) + 1));
+	if (t == NULL)
 		return (NULL);
-	i[1] = 0;
-	i[2] = 0;
-	if (!(tab = ft_memalloc(sizeof(char**) * nb_mot(str, c) + 1)))
-		return (0);
-	while (str[i[1]] != '\0')
+	while (nb_word--)
 	{
-		while (str[i[1]] == c && str[i[1]])
-			i[1]++;
-		if (str[i[1]] != '\0')
-		{
-			i[0] = 0;
-			if (!(tab[i[2]] = ft_memalloc(sizeof(char*) * lmot(str, i[1], c))))
-				return (0);
-			while (str[i[1]] != c && str[i[1]])
-				tab[i[2]][i[0]++] = str[i[1]++];
-			tab[i[2]++][i[0]] = '\0';
-		}
+		while (*s == c && *s != '\0')
+			s++;
+		t[index] = ft_strsub((const char *)s, 0, ft_wlen((const char *)s, c));
+		if (t[index] == NULL)
+			return (NULL);
+		s = s + ft_wlen(s, c);
+		index++;
 	}
-	tab[i[2]] = NULL;
-	return (tab);
+	t[index] = NULL;
+	return (t);
 }

@@ -6,7 +6,7 @@
 /*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:13:51 by cbesse            #+#    #+#             */
-/*   Updated: 2018/03/30 11:46:44 by cbesse           ###   ########.fr       */
+/*   Updated: 2018/04/11 14:26:33 by cbesse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	hit_sphere(t_sphere *sphere, t_ray *ray, double *min_max, t_record *rec)
 	t_vecteur	oc;
 	double		tab[5];
 
-	oc = v_less(ray->A, sphere->center);
-	tab[0] = v_dot(ray->B, ray->B);
-	tab[1] = 2.0 * v_dot(oc, ray->B);
+	oc = v_less(ray->ori, sphere->center);
+	tab[0] = v_dot(ray->dir, ray->dir);
+	tab[1] = 2.0 * v_dot(oc, ray->dir);
 	tab[2] = v_dot(oc, oc) - sphere->radius * sphere->radius;
 	tab[3] = tab[1] * tab[1] - 4 * tab[0] * tab[2];
 	if (tab[3] > 0)
@@ -45,10 +45,10 @@ int	hit_cylindre(t_cylindre *cyl, t_ray *ray, double *min_max, t_record *rec)
 	t_vecteur	oc;
 	double		tab[5];
 
-	oc = v_cross(cyl->dir, ray->B);
+	oc = v_cross(cyl->dir, ray->dir);
 	tab[0] = v_dot(oc, oc);
-	tab[1] = 2 * v_dot(oc, v_cross(cyl->dir, v_less(ray->A, cyl->base)));
-	oc = v_cross(cyl->dir, v_less(ray->A, cyl->base));
+	tab[1] = 2 * v_dot(oc, v_cross(cyl->dir, v_less(ray->ori, cyl->base)));
+	oc = v_cross(cyl->dir, v_less(ray->ori, cyl->base));
 	tab[2] = v_dot(oc, oc) - cyl->radius * cyl->radius;
 	tab[3] = tab[1] * tab[1] - 4 * tab[0] * tab[2];
 	if (tab[3] > 0)
@@ -103,14 +103,14 @@ int	hit_plan(t_plan *plan, t_ray *ray, double *min_max, t_record *rec)
 
 	d = -(plan->vdir.x * plan->point.x + plan->vdir.y * plan->point.y +
 		plan->vdir.z * plan->point.z);
-	oc = v_less(ray->A, plan->point);
+	oc = v_less(ray->ori, plan->point);
 	temp = -((oc.x * plan->vdir.x + oc.y * plan->vdir.y + oc.z * plan->vdir.z
-		+ d) / (plan->vdir.x * ray->B.x + plan->vdir.y * ray->B.y +
-		plan->vdir.z * ray->B.z));
+		+ d) / (plan->vdir.x * ray->dir.x + plan->vdir.y * ray->dir.y +
+		plan->vdir.z * ray->dir.z));
 	if (temp < min_max[1] && temp > min_max[0])
 	{
 		rec->t = temp;
-		rec->p = v_add(ray->A, v_mult(ray->B, rec->t));
+		rec->p = v_add(ray->ori, v_mult(ray->dir, rec->t));
 		rec->normal = v_normalize(v_set(plan->vdir.x, plan->vdir.y,
 			plan->vdir.z));
 		return (1);
