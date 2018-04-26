@@ -14,6 +14,7 @@
 
 void	attr_sphere(t_sphere *sphere, char **tab)
 {
+	tab[3][ft_strlen(tab[3]) - 1] = '\0';
 	sphere->center.x = ft_atof(tab[1] + 1);
 	sphere->center.y = ft_atof(tab[2]);
 	sphere->center.z = ft_atof(tab[3]);
@@ -22,6 +23,8 @@ void	attr_sphere(t_sphere *sphere, char **tab)
 
 void	attr_plan(t_plan *plan, char **tab)
 {
+	tab[3][ft_strlen(tab[3]) - 1] = '\0';
+	tab[6][ft_strlen(tab[6]) - 1] = '\0';
 	plan->point.x = ft_atof(tab[1] + 1);
 	plan->point.y = ft_atof(tab[2]);
 	plan->point.z = ft_atof(tab[3]);
@@ -44,6 +47,7 @@ int		set_sphere(t_scene *scene, char **tab)
 	attr_sphere(scene->list[scene->i].form, tab);
 	scene->list[scene->i].color.x = ft_atof(tab[5] + 1);
 	scene->list[scene->i].color.y = ft_atof(tab[6]);
+	tab[7][ft_strlen(tab[7]) - 1] = '\0';
 	scene->list[scene->i].color.z = ft_atof(tab[7]);
 	scene->list[scene->i].type = 1;
 	scene->i++;
@@ -66,6 +70,7 @@ int		set_plan(t_scene *scene, char **tab)
 	attr_plan(scene->list[scene->i].form, tab);
 	scene->list[scene->i].color.x = ft_atof(tab[7] + 1);
 	scene->list[scene->i].color.y = ft_atof(tab[8]);
+	tab[9][ft_strlen(tab[9]) - 1] = '\0';
 	scene->list[scene->i].color.z = ft_atof(tab[9]);
 	scene->list[scene->i].type = 2;
 	scene->i++;
@@ -84,6 +89,7 @@ int		set_light(t_scene *scene, char **tab)
 		;
 	if (j - 1 != 4)
 		return (-1);
+	tab[3][ft_strlen(tab[3]) - 1] = '\0';
 	scene->light[scene->k].x = ft_atof(tab[1] + 1);
 	scene->light[scene->k].y = ft_atof(tab[2]);
 	scene->light[scene->k].z = ft_atof(tab[3]);

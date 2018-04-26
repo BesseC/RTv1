@@ -6,7 +6,7 @@
 /*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 14:03:05 by cbesse            #+#    #+#             */
-/*   Updated: 2018/04/11 14:23:17 by cbesse           ###   ########.fr       */
+/*   Updated: 2018/04/12 14:29:14 by cbesse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,21 @@ void	raytracer(t_camera cam, t_scene *scene, t_mlx *mlx)
 		{
 			ray = set_ray(tab[0], tab[1], cam);
 			couleur = r_color(&ray, scene->list, scene->light, scene->n_light);
-			col[0] = (int)(255.99 * couleur.x);
-			col[1] = (int)(255.99 * couleur.y);
-			col[2] = (int)(255.99 * couleur.z);
+			col[0] = (int)(255 * couleur.x);
+			col[1] = (int)(255 * couleur.y);
+			col[2] = (int)(255 * couleur.z);
 			mlx->img.data[col[3]] = col[0] * 256 * 256 + col[1] * 256 + col[2];
 			col[3]++;
 			tab[0]++;
 		}
 		tab[1]--;
 	}
+}
+
+int		closer(void *param)
+{
+	(void)param;
+	exit(0);
 }
 
 int		main(int ac, char **av)
@@ -74,5 +80,6 @@ int		main(int ac, char **av)
 	raytracer(cam, scene, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img_ptr, 0, 0);
 	mlx_key_hook(mlx.win, my_key_funct, &mlx);
+	mlx_hook(mlx.win, 17, 0, closer, (void *)&mlx);
 	mlx_loop(mlx.mlx);
 }

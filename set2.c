@@ -14,6 +14,8 @@
 
 void	attr_cylindre(t_cylindre *cylindre, char **tab)
 {
+	tab[3][ft_strlen(tab[3]) - 1] = '\0';
+	tab[7][ft_strlen(tab[7]) - 1] = '\0';
 	cylindre->base.x = ft_atof(tab[1] + 1);
 	cylindre->base.y = ft_atof(tab[2]);
 	cylindre->base.z = ft_atof(tab[3]);
@@ -37,6 +39,7 @@ int		set_cylindre(t_scene *scene, char **tab)
 	attr_cylindre(scene->list[scene->i].form, tab);
 	scene->list[scene->i].color.x = ft_atof(tab[8] + 1);
 	scene->list[scene->i].color.y = ft_atof(tab[9]);
+	tab[10][ft_strlen(tab[10]) - 1] = '\0';
 	scene->list[scene->i].color.z = ft_atof(tab[10]);
 	scene->list[scene->i].type = 3;
 	scene->i++;
@@ -48,6 +51,8 @@ int		set_cylindre(t_scene *scene, char **tab)
 
 void	attr_cone(t_cone *cone, char **tab)
 {
+	tab[3][ft_strlen(tab[3]) - 1] = '\0';
+	tab[7][ft_strlen(tab[7]) - 1] = '\0';
 	cone->apex.x = ft_atof(tab[1] + 1);
 	cone->apex.y = ft_atof(tab[2]);
 	cone->apex.z = ft_atof(tab[3]);
@@ -71,6 +76,7 @@ int		set_cone(t_scene *scene, char **tab)
 	attr_cone(scene->list[scene->i].form, tab);
 	scene->list[scene->i].color.x = ft_atof(tab[8] + 1);
 	scene->list[scene->i].color.y = ft_atof(tab[9]);
+	tab[10][ft_strlen(tab[10]) - 1] = '\0';
 	scene->list[scene->i].color.z = ft_atof(tab[10]);
 	scene->list[scene->i].type = 4;
 	scene->i++;
@@ -89,6 +95,8 @@ int		set_cam(t_scene *scene, char **tab)
 		;
 	if (j - 1 != 7)
 		return (-1);
+	tab[3][ft_strlen(tab[3]) - 1] = '\0';
+	tab[6][ft_strlen(tab[6]) - 1] = '\0';
 	scene->camorigin.x = ft_atof(tab[1] + 1);
 	scene->camorigin.y = ft_atof(tab[2]);
 	scene->camorigin.z = ft_atof(tab[3]);

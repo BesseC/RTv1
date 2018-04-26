@@ -6,11 +6,12 @@
 /*   By: cbesse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 14:02:00 by cbesse            #+#    #+#             */
-/*   Updated: 2018/04/11 14:22:37 by cbesse           ###   ########.fr       */
+/*   Updated: 2018/04/12 14:31:21 by cbesse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#define AMBIANT 0
 
 t_vecteur	r_background(t_ray *ray)
 {
@@ -41,9 +42,9 @@ t_vecteur	diffu_spec(t_vecteur light, t_record *r)
 	shade = shade < 0 ? 0 : shade;
 	phong = phong < 0 ? 0 : phong;
 	phong = pow(phong, 16);
-	diffu.x = r->color.x * (shade) + phong;
-	diffu.y = r->color.y * (shade) + phong;
-	diffu.z = r->color.z * (shade) + phong;
+	diffu.x = r->color.x * (AMBIANT + (1 - AMBIANT) * shade) + phong;
+	diffu.y = r->color.y * (AMBIANT + (1 - AMBIANT) * shade) + phong;
+	diffu.z = r->color.z * (AMBIANT + (1 - AMBIANT) * shade) + phong;
 	return (diffu);
 }
 
