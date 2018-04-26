@@ -24,15 +24,16 @@ int		get_numbers(t_scene *scene, char **av)
 	while (get_next_line(fd, &line) == 1)
 	{
 		tab = ft_strsplit(line, ' ');
-		if (ft_strcmp(tab[0], "sphere") == 0 ||
-				ft_strcmp(tab[0], "plan") == 0 ||
-				ft_strcmp(tab[0], "cylindre") == 0 ||
+		if (ft_strcmp(tab[0], "sphere") == 0 || ft_strcmp(tab[0], "plan") ==
+		0 || ft_strcmp(tab[0], "cylindre") == 0 ||
 				ft_strcmp(tab[0], "cone") == 0)
 			scene->n_obj++;
-		if (ft_strcmp(tab[0], "light") == 0)
+		else if (ft_strcmp(tab[0], "light") == 0)
 			scene->n_light++;
-		if (ft_strcmp(tab[0], "camera") == 0)
+		else if (ft_strcmp(tab[0], "camera") == 0)
 			cam++;
+		else
+			printexit();
 		tab_free(tab, line);
 	}
 	ft_memdel((void **)&line);
@@ -83,11 +84,14 @@ void	ft_parseur(char **av, t_scene *scene)
 {
 	int		fd;
 
+	if ((fd = open(av[1], O_RDONLY)) == -1)
+		printexit();
 	scene->n_obj = 0;
 	scene->n_light = 0;
 	if (get_numbers(scene, av) != 1)
 		printexit();
-	fd = open(av[1], O_RDONLY);
+	if (scene->n_obj == 0)
+		printexit();
 	scene->list = (t_formlist *)ft_memalloc(scene->n_obj * sizeof(t_formlist));
 	scene->light = (t_vecteur *)ft_memalloc(scene->n_light * sizeof(t_vecteur));
 	scene->i = 0;
